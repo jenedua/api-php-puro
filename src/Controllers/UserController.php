@@ -25,8 +25,24 @@ use App\Services\UserServices;
             
         }
         public function login(Request $request, Response $response){
+            $body = $request::body();
+            $userServices = UserServices::auth($body);
+
+            if(isset($userServices['error'])){
+                return $response::json([
+                    'error' => true,
+                    'success' => false,
+                    'message' => $userServices['error']
+                ], 400);
+            }
+            $response::json([
+                'error' => false,
+                'success' => true,
+                'jwt' => $userServices,
+            ], 200);
 
         }
+        
         public function fetch(Request $request, Response $response){
 
         }

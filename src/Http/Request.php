@@ -17,6 +17,10 @@
                 default => []
             };
             return $data;
-        }   
+        } 
+        
+        public static function autorization(){
+            return $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        }
 
     }
